@@ -32,11 +32,11 @@ function App() {
   // setup for mine and others
   const [myCount, setMyCount] = useState(0);
 
-  const mine = useMine(options, { count: 0 }, (data) => {
+  const mine = useMine({ count: 0 }, (data) => {
     setMyCount(data.count);
   });
 
-  useOthers(options, (data) => {
+  useOthers((data) => {
     setOthers(data);
   });
 

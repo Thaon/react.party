@@ -17,18 +17,18 @@ export const useSync = (options, setup, onChange) => {
   );
 };
 
-export const useMine = (options, initialValues, onChange) => {
+export const useMine = (initialValues, onChange) => {
   const [party] = useAtom(nodeParty);
   return usePartyFunction(
     async () => party.loadMine(initialValues),
-    options,
+    null,
     onChange
   );
 };
 
-export const useOthers = (options, onChange) => {
+export const useOthers = (onChange) => {
   const [party] = useAtom(nodeParty);
-  return usePartyFunction(() => party.loadOthers(onChange), options);
+  party.loadOthers(onChange);
 };
 
 const usePartyFunction = (func, options, onChange) => {
