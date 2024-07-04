@@ -105,6 +105,41 @@ function PersonalState() {
 }
 ```
 
+### Checking if you are connected, if you are the host, and users in the room
+
+It's very useful to know if you are the host of the room, you can use the `isHost` property from the `useParty` hook.
+
+```js
+import { useState, useEffect } from "react";
+import { useParty } from "@thaon/react.party";
+
+function HostChecker() {
+  const { isConnected, party, users } = useParty();
+
+  const [isHost, setIsHost] = useState(false);
+  const [guests, setGuests] = useState(0);
+
+  // we update who's the host, in case of disconnections
+  useEffect(() => {
+    if (!party) return;
+    setIsHost(party.isHost());
+
+    setGuests(users.length);
+  }, [users]);
+
+  return (
+    <div>
+      {isConnected ? "Connected to NodeParty" : "Connecting..."}
+      <br />
+      {isHost ? "You are the host" : "You are a guest"}
+      <br />
+      {guests} guests in the room
+      <br />
+    </div>
+  );
+}
+```
+
 ### Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request with your improvements or suggestions.
