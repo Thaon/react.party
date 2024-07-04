@@ -17,6 +17,7 @@
   "dependencies": {
     "@deepstream/client": "^7.0.4",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "buffer": "^6.0.3",
     "Buffer": "^0.0.0",
     "deepstream.io-tools-react": "^0.1.5",
     "jotai": "^2.8.4",
