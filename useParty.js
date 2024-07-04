@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import { atom, useAtom } from "jotai";
-
 import NodeParty from "node.party";
 
 const nodeParty = atom(new NodeParty());
