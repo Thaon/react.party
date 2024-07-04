@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import useParty, { useConnect, useMine, useOthers, useSync } from "react.party";
+import useParty, {
+  useConnect,
+  useMine,
+  useOthers,
+  useSync,
+} from "@thaon/react.party";
 
 function App() {
   const [isHost, setIsHost] = useState(false);
