@@ -8,6 +8,10 @@ Following the same principles, it aims to enable multiplayer functionality in Re
 
 It relies on a Deepstream server for communication and uses WebSockets.
 
+## Demo!
+
+Wanna try it out? open a couple of browser windows at this URL: [https://react-party.netlify.app/](https://react-party.netlify.app/)
+
 ## Installation
 
 To use this library, first, ensure you have NodeParty and its dependencies set up in your project. Then, add this library to your project:
