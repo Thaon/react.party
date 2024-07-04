@@ -14,8 +14,6 @@ To use this library, first, ensure you have NodeParty and its dependencies set u
 
 ```bash
 npm install @thaon/react.party
-@thaon/react.party
-@thaon/react.party
 ```
 
 ## Usage
