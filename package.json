@@ -1,6 +1,5 @@
 {
-  "name": "react.party",
-  "private": true,
+  "name": "@thaon/react.party",
   "version": "1.0.0",
   "type": "module",
   "author": "Gabriele Maddaloni",
