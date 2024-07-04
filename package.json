@@ -1,8 +1,14 @@
 {
   "name": "react.party",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": "Gabriele Maddaloni",
+  "description": "A simple and lean multiplayer integration for React",
+  "entry-point": "useParty.js",
+  "main": "useParty.js",
+  "git-repository": "https://github.com/Thaon/react.party.git",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,6 +21,7 @@
     "Buffer": "^0.0.0",
     "deepstream.io-tools-react": "^0.1.5",
     "jotai": "^2.8.4",
+    "node.party": "^1.0.0",
     "on-change": "^5.0.1",
     "path": "^0.12.7",
     "react": "^18.3.1",

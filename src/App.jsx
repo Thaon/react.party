@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useParty, { useMine, useOthers, useSync } from "./useParty";
+import useParty, { useConnect, useMine, useOthers, useSync } from "react.party";
 
 function App() {
   const [isHost, setIsHost] = useState(false);
@@ -15,6 +15,9 @@ function App() {
     room: "NodePartyTest",
   };
 
+  // connect to the server
+  useConnect(options);
+
   // this is required
   const setup = {
     name: "counter",
@@ -27,7 +30,7 @@ function App() {
   };
 
   // this is the shared object that is synced between clients
-  const shared = useSync(options, setup, onChange);
+  const shared = useSync(setup, onChange);
 
   // setup for mine and others
   const [myCount, setMyCount] = useState(0);
@@ -40,8 +43,8 @@ function App() {
     setOthers(data);
   });
 
-  // we can use the useParty hook to access properties, such as whether we are the host, or the number of connected clients
-  const { party, users } = useParty();
+  // we can use the useParty hook to access properties, such as whether we are the host, or the number of isC clients
+  const { isConnected, party, users } = useParty();
 
   // we update who's the host, in case of disconnections
   useEffect(() => {
@@ -54,6 +57,7 @@ function App() {
   return (
     <>
       <h1>Vite + React + Party</h1>
+      <h2>Connected: {isConnected ? "Yes" : "No"}</h2>
       <hr />
       {isHost ? <h2>Host</h2> : <h2>Guest</h2>}
       <hr />
