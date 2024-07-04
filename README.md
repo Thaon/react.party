@@ -13,7 +13,9 @@ It relies on a Deepstream server for communication and uses WebSockets.
 To use this library, first, ensure you have NodeParty and its dependencies set up in your project. Then, add this library to your project:
 
 ```bash
-npm install react.party
+npm install @thaon/react.party
+@thaon/react.party
+@thaon/react.party
 ```
 
 ## Usage
@@ -24,14 +26,16 @@ To connect to a NodeParty server and manage real-time user connections, use the 
 
 ```js
 import React from "react";
-import { useConnect } from "path-to-useParty";
+import useParty, { useConnect } from "@thaon/react.party";
 
 function App() {
-  const isConnected = useConnect({
+  useConnect({
     url: "wss://yourserver.com", // WebSocket server URL, this is optional as it defaults to the react.party test server
     app: "YourAppName", // Application name
     room: "YourRoomName", // Room name
   });
+
+  const { isConnected } = useParty();
 
   return <div>{isConnected ? "Connected to NodeParty" : "Connecting..."}</div>;
 }
@@ -42,16 +46,20 @@ function App() {
 To synchronize a shared state across clients, use the useSync hook.
 
 ```js
-import React from "react";
-import { useSync } from "path-to-useParty";
+import { useState } from "react";
+import { useSync } from "@thaon/react.party";
 
 function SharedCounter() {
-  const setup = { name: "counter", initialValues: { count: 0 } };
-  const sharedCounter = useSync(setup, (newState) => {
-    console.log("New counter state:", newState);
-  });
+  const [count, setCount] = useState(0);
 
-  return <div>Current count: {sharedCounter?.count || 0}</div>;
+  const setup = { name: "counter", initialValues: { count: 0 } };
+  const onChange = (newState) => {
+    console.log("New counter state:", newState);
+    setCount(newState.count);
+  };
+  const sharedCounter = useSync(setup, onChange);
+
+  return <div>Current count: {count}</div>;
 }
 ```
 
@@ -60,24 +68,40 @@ function SharedCounter() {
 For personal state management and listening to others' state changes, use useMine and useOthers hooks respectively.
 
 ```js
-import React from "react";
-import { useMine, useOthers } from "path-to-useParty";
+import { useState } from "react";
+import { useMine, useOthers } from "@thaon/react.party";
 
 function PersonalState() {
-  const myState = useMine({ myKey: "initialValue" }, (newState) => {
-    console.log("My new state:", newState);
+  const [myCount, setMyCount] = useState(0);
+  const [others, setOthers] = useState([]);
+
+  const mine = useMine({ count: 0 }, (data) => {
+    setMyCount(data.count);
   });
 
   // Use `useOthers` similarly to listen to others' state changes.
-  const othersState = useOthers((newState) => {
-    console.log("Others new state:", newState);
+  useOthers((data) => {
+    setOthers(data);
   });
 
   return (
     <div>
-      My state: {JSON.stringify(myState)}
+      My count: {myCount}
+      <button
+        onClick={() => {
+          // note that we update the state directly as this is how the library keeps track of changes online
+          mine.count++;
+        }}
+      >
+        my count ++
+      </button>
       <br />
-      Others state: {JSON.stringify(othersState)}
+      Others:
+      <ul>
+        {(others || []).map((other, index) => (
+          <li key={index}>{other.count}</li>
+        ))}
+      </ul>
     </div>
   );
 }
